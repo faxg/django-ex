@@ -127,7 +127,7 @@ buildConfigs/django-ex
 deploymentConfigs/django-ex
 services/django-ex
 A build was created - you can run `oc start-build django-ex` to start it.
-Service "django-ex" created at 172.30.16.213 with port mappings 8080.
+Service "syren_platform" created at 172.30.16.213 with port mappings 8080.
 ```
 
 You can access your application by browsing to the service's IP address and port.
