@@ -19,9 +19,9 @@ class PageViewTest(TestCase):
 
 class DbEngine(TestCase):
     def setUp(self):
-        os.environ['ENGINE'] = 'SQLite'
+        os.environ['ENGINE'] = 'postgres'
 
     def test_engine_setup(self):
         settings = info()
-        self.assertEqual(settings['engine'], 'SQLite')
-        self.assertEqual(settings['is_sqlite'], True)
+        self.assertEqual(settings['engine'], 'postgres')
+        self.assertEqual(settings['is_sqlite'], False)
