@@ -141,7 +141,7 @@ TEST_DATABASE_PREFIX = "TEST_"
 ### Celery config (we use redis?)
 ###
 
-CELERY_BROKER_URL=os.getenv('REDIS_URI', 'redis://localhost')
+CELERY_BROKER_URL=os.getenv('redis_uri', 'redis://localhost')
 CELERY_RESULT_BACKEND = 'django-db'
 
-print ("REDIS_URI = %s" % (CELERY_BROKER_URL))
+print ("CELERY_BROKER_URL= %s" % (CELERY_BROKER_URL))
