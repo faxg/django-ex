@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'celery',
+    'django_celery_results',
     'welcome',
 ]
 
@@ -131,3 +133,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 INTERNAL_IPS = ['127.0.0.1']
+
+
+###
+### Celery config (we use redis?)
+###
+
+CELERY_BROKER_URL=os.getenv('REDIS_URI', 'redis://localhost')
+CELERY_RESULT_BACKEND = 'django-db'
+
+print ("redis_uri = %s" % (CELERY_BROKER_URL))
