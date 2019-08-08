@@ -16,6 +16,12 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
+#def lazy_installed_apps():
+#    from django.conf import settings
+#    return settings.INSTALLED_APPS
+#app.autodiscover_tasks(lazy_installed_apps)
+
+
 
 @app.task(bind=True)
 def debug_task(self):

@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import flower
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -31,7 +31,6 @@ SECRET_KEY = os.getenv(
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -76,10 +75,44 @@ TEMPLATES = [
             ],
         },
     },
+    {
+        'BACKEND': 'django_jinja.backend.Jinja2',
+        'NAME': "jinja2",  # template alias
+        'DIRS': [os.path.join(os.path.dirname(flower.__file__), "templates")],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            "environment": "jinja2.Environment",
+            "match_extension": None,
+            "filters": {},
+            "globals": {},
+            "constants": {},
+            "extensions": [
+                "jinja2.ext.do",
+                "jinja2.ext.loopcontrols",
+                "jinja2.ext.with_",
+                "jinja2.ext.i18n",
+                "jinja2.ext.autoescape",
+                "django_jinja.builtins.extensions.CsrfExtension",
+                "django_jinja.builtins.extensions.CacheExtension",
+                "django_jinja.builtins.extensions.TimezoneExtension",
+                "django_jinja.builtins.extensions.UrlsExtension",
+                "django_jinja.builtins.extensions.StaticFilesExtension",
+                "django_jinja.builtins.extensions.DjangoFiltersExtension",
+            ],
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    }
 ]
 
 WSGI_APPLICATION = 'wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -89,7 +122,6 @@ from . import database
 DATABASES = {
     'default': database.config()
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -109,7 +141,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -123,7 +154,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -134,7 +164,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 INTERNAL_IPS = ['127.0.0.1']
 
-
 TEST_DATABASE_PREFIX = "TEST_"
 
 ###
@@ -143,7 +172,7 @@ TEST_DATABASE_PREFIX = "TEST_"
 _redis_uri = os.getenv('redis_uri', 'redis://localhost')
 _redis_pw = os.getenv('redis_password', None)
 if (_redis_pw):
-    CELERY_BROKER_URL = 'redis://:' + _redis_pw+'@' + _redis_uri[8:]
+    CELERY_BROKER_URL = 'redis://:' + _redis_pw + '@' + _redis_uri[8:]
 else:
     CELERY_BROKER_URL = _redis_uri
 
@@ -153,4 +182,4 @@ CELERY_TASK_SERIALIZER = 'json'
 
 CELERY_RESULT_BACKEND = 'django-db'
 
-#print ("CELERY_BROKER_URL= %s" % (CELERY_BROKER_URL))
+# print ("CELERY_BROKER_URL= %s" % (CELERY_BROKER_URL))
