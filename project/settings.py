@@ -144,4 +144,4 @@ TEST_DATABASE_PREFIX = "TEST_"
 CELERY_BROKER_URL=os.getenv('redis_uri', 'redis://localhost')
 CELERY_RESULT_BACKEND = 'django-db'
 
-print ("CELERY_BROKER_URL= %s" % (CELERY_BROKER_URL))
+#print ("CELERY_BROKER_URL= %s" % (CELERY_BROKER_URL))

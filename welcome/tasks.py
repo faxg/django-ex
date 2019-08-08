@@ -1,12 +1,12 @@
 from celery import shared_task
 import os
+from project.settings import *
 
 
 @shared_task
 def getInfo():
     result = {
-        "redis_uri": os.getenv("redis_uri"),
-        "redis_password": os.getenv("password")
+        "CELERY_BROKER_URL": CELERY_BROKER_URL,
     }
     return result
 
