@@ -20,3 +20,8 @@ def index(request):
 
 def health(request):
     return HttpResponse(PageView.objects.count())
+
+def test_task_queue(request):
+    from .tasks import getInfo
+    return HttpResponse (getInfo.delay())
+
