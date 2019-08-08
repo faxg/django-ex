@@ -140,8 +140,17 @@ TEST_DATABASE_PREFIX = "TEST_"
 ###
 ### Celery config (we use redis?)
 ###
+_redis_uri = os.getenv('redis_uri', 'redis://localhost')
+_redis_pw = os.getenv('redis_password', None)
+if (_redis_pw):
+    CELERY_BROKER_URL = 'redis://:' + _redis_pw+'@' + _redis_uri[8:]
+else:
+    CELERY_BROKER_URL = _redis_uri
 
-CELERY_BROKER_URL=os.getenv('redis_uri', 'redis://localhost')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+
 CELERY_RESULT_BACKEND = 'django-db'
 
 #print ("CELERY_BROKER_URL= %s" % (CELERY_BROKER_URL))
