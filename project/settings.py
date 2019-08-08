@@ -135,6 +135,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 INTERNAL_IPS = ['127.0.0.1']
 
 
+TEST_DATABASE_PREFIX = "TEST_"
+
 ###
 ### Celery config (we use redis?)
 ###
@@ -142,4 +144,4 @@ INTERNAL_IPS = ['127.0.0.1']
 CELERY_BROKER_URL=os.getenv('REDIS_URI', 'redis://localhost')
 CELERY_RESULT_BACKEND = 'django-db'
 
-print ("redis_uri = %s" % (CELERY_BROKER_URL))
+print ("REDIS_URI = %s" % (CELERY_BROKER_URL))
